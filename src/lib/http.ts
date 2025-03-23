@@ -110,11 +110,12 @@ const request = async <Response>(
   // Interceptor là nời chúng ta xử lý request và response trước khi trả về cho phía component
   if (!res.ok) {
     if (res.status === ENTITY_ERROR_STATUS) {
-      console.log("Entity Error Data:", data);
-      throw new EntityError({
-        status: ENTITY_ERROR_STATUS,
-        payload: data.payload as EntityErrorPayload,
-      });
+      throw new EntityError(
+        data as {
+          status: 422
+          payload: EntityErrorPayload
+        }
+      )
     } else if (res.status === AUTHENTICATION_ERROR_STATUS) {
       if (isClient()) {
         if (!clientLogoutRequest) {
@@ -136,6 +137,7 @@ const request = async <Response>(
           }
         }
       } else {
+        // Đây là trường hợp nếu accessToken còn hạn
         const accessToken = (options?.headers as any)?.Authorization.split(
           "Bearer "
         )[1];

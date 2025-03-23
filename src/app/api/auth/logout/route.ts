@@ -1,4 +1,4 @@
-import authLoginRequest from "@/apiRequests/auth";
+import authApiRequest from "@/apiRequests/auth";
 import { LoginBodyType, LoginResType } from "@/schemaValidations/auth.schema";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   (await cookieStore).delete("accessToken");
   (await cookieStore).delete("refreshToken");
   try {
-    const result = await authLoginRequest.slogout({
+    const result = await authApiRequest.slogout({
       accessToken,
       refreshToken,
     });

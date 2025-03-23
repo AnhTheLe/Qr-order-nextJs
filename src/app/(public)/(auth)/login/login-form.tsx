@@ -37,7 +37,6 @@ export default function LoginForm() {
       toast.success(res.payload.message);
       router.push("/manage/dashboard");
     } catch (error) {
-      console.log("error", error);
       handleErrorApi({
         error,
         setError: form.setError,

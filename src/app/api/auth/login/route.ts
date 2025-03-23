@@ -1,4 +1,4 @@
-import authLoginRequest from "@/apiRequests/auth";
+import authApiRequest from "@/apiRequests/auth";
 import { LoginBodyType, LoginResType } from "@/schemaValidations/auth.schema";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
@@ -9,8 +9,7 @@ export async function POST(request: Request) {
   const cookieStore = cookies();
 
   try {
-    const { payload } = await authLoginRequest.sLogin(body);
-    console.log("payload", payload);
+    const { payload } = await authApiRequest.sLogin(body);
     const { accessToken, refreshToken } = payload.data;
 
     const decodeAccessToken = jwt.decode(accessToken) as { exp: number };
@@ -35,7 +34,7 @@ export async function POST(request: Request) {
     return Response.json(payload);
   } catch (error) {
     if (error instanceof HttpError) {
-      return Response.json(error.message, { status: error.status });
+      return Response.json(error.payload, { status: error.status });
     } else {
       return Response.json({ message: "Internal Server Error", status: 500 });
     }
