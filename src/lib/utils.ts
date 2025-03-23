@@ -18,6 +18,8 @@ export const normalizePath = (path: string) => {
   return path.startsWith("/") ? path.slice(1) : path;
 };
 
+const isBrowser = typeof window !== 'undefined'
+
 export const handleErrorApi = ({
   error,
   setError,
@@ -59,6 +61,11 @@ export const setAccessTokenToLocalStorage = (value: string) => {
 export const setRefreshTokenToLocalStorage = (value: string) => {
   return localStorage.setItem("refreshToken", value);
 };
+
+export const removeTokensFromLocalStorage = () => {
+  isBrowser && localStorage.removeItem('accessToken')
+  isBrowser && localStorage.removeItem('refreshToken')
+}
 
 export const checkAndRefreshToken = async (param?: {
   onError?: () => void

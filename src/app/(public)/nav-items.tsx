@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAppContext } from "../app-provider";
 
 const menuItems = [
   {
@@ -26,11 +27,7 @@ const menuItems = [
 ];
 
 export default function NavItems({ className }: { className?: string }) {
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    setIsAuth(Boolean(localStorage.getItem("accessToken")));
-  }, []);
+  const { isAuth } = useAppContext();
 
   return menuItems.map((item) => {
     if ((item.authRequired && !isAuth) || (!item.authRequired && isAuth))
