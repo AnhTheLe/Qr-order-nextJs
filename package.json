@@ -23,6 +23,8 @@
     "@tanstack/react-table": "^8.21.2",
     "@types/jsonwebtoken": "^9.0.9",
     "class-variance-authority": "^0.7.1",
+    "dompurify": "^3.2.4",
+    "jsdom": "^26.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.477.0",
